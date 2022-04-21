@@ -1,0 +1,531 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <cstring>
+#include "bmplib.cpp"
+
+using namespace std;
+unsigned char imageRGB[SIZE][SIZE][RGB];
+
+void loadImageRGB();
+void blackAndWhiteRGB();
+void invertImageRGB();
+void mergeImagesRGB();
+void flipImageRGB();
+void rotateImageRGB();
+void rotateImage90RGB();
+void rotateImage180RGB();
+void rotateImage270RGB();
+void opacityRGB();
+void edgeDetectRGB();
+void mirrorImageRGB();
+void shrinkImageRGB();
+void blurImageRGB();
+void saveImageRGB();
+
+int main()
+{
+    char command, rotate;
+    // Greeting the user
+    cout << "Photoshop Application\nHello User!\n";
+    loadImageRGB();
+    // While the command is not to end the program, ask for another command
+    while (command != '0')
+    {
+        cout << "\n";
+        // The main menu shown to the user
+        cout << " 1-B&W Filter\n 2-Invert Image\n 3-Merge Images\n 4-Flip Image\n 5-Rotate Image\n 6-Darken & Lighten Image\n 7-Edge Detection\n 9-Shrink Image\n a-Mirror Image\n c-Blur Image\n s-Save Image\n 0-Exit\n===> ";
+        cin >> command;
+        cin.ignore();
+        if (command == '0')
+        {
+            cout << "Thank you, Goodbye!\n";
+            break;
+        }
+        if (command == '1')
+            blackAndWhiteRGB();
+        else if (command == '2')
+            invertImageRGB();
+        else if (command == '3')
+            mergeImagesRGB();
+        else if (command == '4')
+            flipImageRGB();
+        else if (command == '5')
+            rotateImageRGB();
+        else if (command == '6')
+            opacityRGB();
+        else if (command == '7')
+            edgeDetectRGB();
+        else if (command == '9')
+            shrinkImageRGB();
+        else if (command == 'a')
+            mirrorImageRGB();
+        else if (command == 'c')
+            blurImageRGB();
+        else if (command == 's')
+            saveImageRGB();
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+void loadImageRGB()
+{
+    // Function to load an image
+    char imageFileName[100];
+    cout << "\nEnter the image file name: ";
+    cin >> imageFileName;
+    strcat(imageFileName, ".bmp");
+    readRGBBMP(imageFileName, imageRGB);
+}
+
+void blackAndWhiteRGB()
+{
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            for (int k = 0; k < RGB; k++){
+                
+                imageRGB[i][j][k] = imageRGB[i][j][1];
+                if (imageRGB[i][j][k] > 127)
+                {
+                    imageRGB[i][j][k] = 255;
+                }
+                else if (imageRGB[i][j][k] < 127)
+                {
+                    imageRGB[i][j][k] = 0;
+                }  
+            }
+        }
+    }
+}
+
+void invertImageRGB()
+{
+    for (int i = 0; i <SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int k = 0; k <RGB ; k++){
+                imageRGB[i][j][k] = 255 - imageRGB[i][j][k];
+            }
+        }
+    }
+}
+
+void mergeImagesRGB()
+{
+
+}
+
+void flipImageRGB()
+{
+    int flip;
+    cout << "1-Horizontal Flip\n2-Vertical Flip\n===> ";
+    cin >> flip;
+    // Intializing the 2d Array
+    if(flip == 1){
+        for (int i = 0; i < SIZE / 2; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                    // swap pixels of rows with 255 - the pixel to flip horizontally
+                    swap(imageRGB[i][j][k], imageRGB[255 - i][255 - j][k]);
+                }
+            }
+        }
+    }
+    else if(flip == 2)
+    {
+        // Intializing the 2d Array
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE / 2; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                // swap the pixel of the image with 255-column to swap vertically
+                swap(imageRGB[i][j][k], imageRGB[i][255 - j][k]);
+                }
+            }
+        }
+    }
+}
+
+void rotateImage90RGB()
+{
+    // Intializing the 2d Array
+    for (int i = 0; i < SIZE / 2; i++)
+    {
+        for (int j = i; j < SIZE - i - 1; j++)
+        {
+            for (int k = 0; k < RGB ; k++)
+            {
+                int image2 = imageRGB[i][j][k];
+                imageRGB[i][j][k] = imageRGB[SIZE - 1 - j][i][k];
+                imageRGB[SIZE - 1 - j][i][k] = imageRGB[SIZE - 1 - i][SIZE - 1 - j][k];
+                imageRGB[SIZE - 1 - i][SIZE - 1 - j][k] = imageRGB[j][SIZE - 1 - i][k];
+                imageRGB[j][SIZE - 1 - i][k] = image2;
+            }
+        }
+    }
+}
+
+void rotateImage180RGB()
+{
+    // Intializing the 2d Array
+    for (int i = 0; i < 128; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < RGB ; k++)
+            {
+            // swap pixels of rows with 255 - the pixel, to rotate 180
+            swap(imageRGB[i][j][k], imageRGB[255 - i][255 - j][k]);
+
+            }
+        }
+    }
+}
+
+void rotateImage270RGB()
+{
+    rotateImage90RGB();
+    rotateImage180RGB();
+}
+
+void rotateImageRGB()
+{
+    char rotate;
+    cout << " 1-90\n 2-180\n 3-270\n===> ";
+    cin >> rotate;
+    if (rotate == '1')
+        rotateImage90RGB();
+    if (rotate == '2')
+        rotateImage180RGB();
+    if (rotate == '3')
+        rotateImage270RGB();  
+}
+
+void opacityRGB()
+{
+    char action;
+    cout << "1-Lighten or 2-Darken \n ===> ";
+    cin >> action;
+    // check valid input
+    while (action != '1' && action != '2')
+    {
+        cout << "Please enter 1 or 2,\n";
+        cout << "1-Lighten or 2-Darken \n ===> ";
+        cin >> action;
+    }
+    // to lighten
+    if (action == '1')
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB; k++)
+                {
+                    // take average between pixel color and white
+                    imageRGB[i][j][k] = (imageRGB[i][j][k] + 255) / 2;
+                }
+                
+            }
+        }
+    }
+    // to darken
+    if (action == '2')
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB; k++)
+                {
+                    // take average between pixel color and black(0)
+                    imageRGB[i][j][k] = imageRGB[i][j][k] / 2;
+                }
+            }
+        }
+    }
+}
+
+void edgeDetectRGB()
+{
+    // Intializing the 2d Array
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < RGB ; k++)
+            {
+                // If the difference between the pixel & the one beside it or under it is bigger than 45 or smaller than -45 then take that pixel as an edge and convert it to black
+                if (imageRGB[i][j][k] - imageRGB[i + 1][j][k] > 30 || imageRGB[i][j][k] - imageRGB[i][j + 1][k] > 30 || imageRGB[i][j][k] - imageRGB[i][j + 1][k] < -30 || imageRGB[i][j][k] - imageRGB[i + 1][j][k] < -30)
+                {
+                    imageRGB[i][j][k] = 0;
+                }
+                else
+                {
+                    // Convert everything else to white
+                    imageRGB[i][j][k] = 255;
+                }
+            }
+
+        }
+    }
+    blackAndWhiteRGB();
+
+}
+
+void mirrorImageRGB()
+{
+    int mirror;    //Taking a command to specify how to mirror the image
+    cout << " 1-Left 1/2\n 2-Right 1/2\n 3-Upper 1/2\n 4-Lower 1/2\n ===>";
+    cin >> mirror;
+
+    if(mirror == 1)  //If the command is 1 Mirror the left half of the image 
+    {
+        //Intializing the 2D Array
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                    imageRGB[i][255-j][k] = imageRGB[i][j][k];   //Swaping pixels to get the mirror effect
+                }
+            }
+        }
+    }
+    else if(mirror == 2)   // If the command is 2 Mirror the right half of the image 
+    {
+        //Intializing the 2D Array
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                    imageRGB[i][j][k] = imageRGB[i][255-j][k];   //Swaping pixels to get the mirror effect
+                }
+            }
+        }
+    }
+    else if(mirror == 3)   // If the command is 3 Mirror the upper half of the image 
+    {
+        //Intializing the 2D Array
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                    imageRGB[255-i][j][k] = imageRGB[i][j][k];   //Swaping pixels to get the mirror effect
+                }
+            }
+        }
+    }
+    else if(mirror == 4)   // If the command is 4 Mirror the bottom half of the image 
+    {
+        //Intializing the 2D Array
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB ; k++)
+                {
+                    imageRGB[i][j][k] = imageRGB[255-i][j][k];   //Swaping pixels to get the mirror effect
+                }
+            }
+        }
+    }
+}
+
+void blurImageRGB()
+{
+    // loop 4 times to increase blur
+    for (int counter = 0; counter < 4; counter++)
+    {
+        // loop through each pixel
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB; k++){
+                    // detecting edges of photo
+                    // first row
+                    if (i == 0)
+                    {
+                        // first col
+                        if (j == 0)
+                        {
+                            // average of surrounding pixels
+                            imageRGB[i][j][k] = (imageRGB[i][j + 1][k] + imageRGB[i + 1][j][k] + imageRGB[i + 1][j + 1][k]) / 3;
+                        }
+                        // last col
+                        else if (j == SIZE - 1)
+                        {
+                            // average of surrounding pixels
+                            imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i + 1][j][k] + imageRGB[i + 1][j - 1][k]) / 3;
+                        }
+                        // rest
+                        else
+                        {
+                            // average of surrounding pixels
+                            imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i][j + 1][k] + imageRGB[i + 1][j][k] + imageRGB[i + 1][j - 1][k] + imageRGB[i + 1][j + 1][k]) / 5;
+                        }
+                    }
+                    // last row
+                    else if (i == SIZE - 1)
+                    {
+                        // first col
+                        if (j == 0)
+                        {
+                            imageRGB[i][j][k] = (imageRGB[i][j + 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j + 1][k]) / 3;
+                        }
+                        // last col
+                        else if (j == SIZE - 1)
+                        {
+                            imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j - 1][k]) / 3;
+                        }
+                        // rest
+                        else
+                        {
+                            imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i][j + 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j - 1][k] + imageRGB[i - 1][j + 1][k]) / 5;
+                        }
+                    }
+                    // left side pixels
+                    else if (j == 0)
+                    {
+                        imageRGB[i][j][k] = (imageRGB[i][j + 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j + 1][k] + imageRGB[i + 1][j + 1][k] + imageRGB[i + 1][j][k]) / 5;
+                    }
+                    // right side pixels
+                    else if (j == SIZE - 1)
+                    {
+                        imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j - 1][k] + imageRGB[i + 1][j - 1][k] + imageRGB[i + 1][j][k]) / 5;
+                    }
+                    // rest of pixels
+                    else
+                    {
+                        imageRGB[i][j][k] = (imageRGB[i][j - 1][k] + imageRGB[i - 1][j][k] + imageRGB[i - 1][j - 1][k] + imageRGB[i + 1][j - 1][k] + imageRGB[i + 1][j][k] + imageRGB[i + 1][j + 1][k] + imageRGB[i][j + 1][k] + imageRGB[i - 1][j + 1][k]) / 8;
+                    }
+                }
+            }
+        }
+    } 
+}
+
+void shrinkImageRGB() 
+{
+    char action;
+    // take action input
+    cout << "Do you want to shrink to\n1- Half(1/2)\n2- Third(1/3)\n3- Quarter(1/4)"<<endl;
+    cin >> action;
+    // check valid input
+    while(action!='1'&&action!='2'&&action!='3'){
+        cout<<"Please enter 1 or 2 or 3"<<endl;
+        cout << "Do you want to shrink to\n1- Half(1/2)\n2- Third(1/3)\n3- Quarter(1/4)"<<endl;
+        cin >> action;
+    }
+    int y;
+    switch (action){
+        case '1':
+            y=0;
+            // take average between every 2 pixels and join in one pixel in order
+            for (int i = 0; i < SIZE/2; i++) {
+                for(int j = 0; j < SIZE/2; j++){
+                    imageRGB[i][j][0]=(imageRGB[i][y][0]+imageRGB[i][y+1][0])/2;
+                    imageRGB[i][j][1]=(imageRGB[i][y][1]+imageRGB[i][y+1][1])/2;
+                    imageRGB[i][j][2]=(imageRGB[i][y][2]+imageRGB[i][y+1][2])/2;
+                    y+=2;
+                }
+            }
+            // make the rest of image white
+            for (int i = 0; i < SIZE; i++) {
+                for(int j = SIZE/2; j < SIZE; j++){
+                    for(int k=0; k<RGB; k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            for (int i = SIZE/2; i < SIZE; i++) {
+                for(int j = 0; j < SIZE/2; j++){
+                    for(int k=0; k<RGB; k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            break;
+        case '2':
+            y=0;
+            // take average between every 3 pixels and join in one pixel in order
+            for (int i = 0; i < SIZE/3; i++) {
+                for(int j = 0; j < SIZE; j++){
+                    imageRGB[i][j][0]=(imageRGB[i][y][0]+imageRGB[i][y+1][0]+imageRGB[i][y+2][0])/3;
+                    imageRGB[i][j][1]=(imageRGB[i][y][1]+imageRGB[i][y+1][1]+imageRGB[i][y+2][1])/3;
+                    imageRGB[i][j][2]=(imageRGB[i][y][2]+imageRGB[i][y+1][2]+imageRGB[i][y+2][2])/3;
+                    y+=3;
+                }
+            }
+            // make the rest of image white
+            for (int i = 0; i < SIZE; i++) {
+                for(int j = SIZE/3; j < SIZE; j++){
+                    for(int k=0;k<RGB;k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            for (int i = SIZE/4; i < SIZE; i++) {
+                for(int j = 0; j < SIZE/3; j++){
+                    for(int k=0;k<RGB;k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            break;
+        case '3':
+            y=0;
+            // take average between every 4 pixels and join in one pixel in order
+            for (int i = 0; i < SIZE/4; i++) {
+                for(int j = 0; j < SIZE; j++){
+                    imageRGB[i][j][0]=(imageRGB[i][y][0]+imageRGB[i][y+1][0]+imageRGB[i][y+2][0]+imageRGB[i][y+3][0])/4;
+                    imageRGB[i][j][1]=(imageRGB[i][y][1]+imageRGB[i][y+1][1]+imageRGB[i][y+2][1]+imageRGB[i][y+3][1])/4;
+                    imageRGB[i][j][2]=(imageRGB[i][y][2]+imageRGB[i][y+1][2]+imageRGB[i][y+2][2]+imageRGB[i][y+3][2])/4;
+                    y+=4;
+                }
+            }
+            // make the rest of image white
+            for (int i = 0; i < SIZE; i++) {
+                for(int j = SIZE/4; j < SIZE; j++){
+                    for(int k=0;k<RGB;k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            for (int i = (SIZE/5)+1; i < SIZE; i++) {
+                for(int j = 0; j < SIZE/2; j++){
+                    for(int k=0;k<RGB;k++){
+                        imageRGB[i][j][k]=255;
+                    }
+                }
+            }
+            break;
+    }
+}
+
+void saveImageRGB()
+{
+    // Function to save the image
+    char imageFileName[100];
+    cout << "Enter the name you would like to save the image: ";
+    cin >> imageFileName;
+    strcat(imageFileName, ".bmp");
+    writeRGBBMP(imageFileName, imageRGB);
+}
