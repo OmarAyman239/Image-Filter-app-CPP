@@ -51,7 +51,7 @@ int main()
     {
         cout << "\n";
         // The main menu shown to the user
-        cout << " 1-B&W Filter\n 2-Invert Image\n 3-Merge Images\n 4-Flip Image\n 5-Rotate Image\n 6-Darken & Lighten Image\n 7-Edge Detection\n 8-Enlarge Image\n 9-Shrink Image\n a-Mirror Image\n c-Blur Image\n s-Save Image\n 0-Exit\n===> ";
+        cout << " 1-B&W Filter\n 2-Invert Image\n 3-Merge Images\n 4-Flip Image\n 5-Rotate Image\n 6-Darken & Lighten Image\n 7-Edge Detection\n 8-Enlarge Image\n 9-Shrink Image\n a-Mirror Image\n b-Shuffle Image\n c-Blur Image\n s-Save Image\n 0-Exit\n===> ";
         cin >> command;
         cin.ignore();
         if (command == '0')
@@ -460,7 +460,115 @@ void blurImage()
 
 void shuffleImage()
 {
+   unsigned char tempImage[SIZE][SIZE];
+   int choice;
+    cout << "choose which quarter to be placed in the first quarter: " << endl;
+    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cin >> choice;
 
+
+    while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+    {
+        cout << "choose 1 or 2 or 3 or 4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4r" << endl;
+        cin >> choice;
+    }
+
+    for (int i = 0,x = 127; i < 128;i++, x++){
+        for (int j = 0,y = 127; j < 128; j++,y++){
+            
+            if (choice == 1)
+                image[i][j] = tempImage[i][j]; 
+            else if (choice == 2)
+                image[i][j] = tempImage[i][y]; 
+            else if (choice == 3)
+                image[i][j] = tempImage[x][j]; 
+            else if (choice == 4)
+                image[i][j] = tempImage[x][y]; 
+        
+        }
+    }
+
+    cout << "choose which quarter to be placed in the second quarter: " << endl;
+    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cin >> choice;
+
+    
+    while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+    {
+        cout << "choose 1 or 2 or 3 or 4" << endl;
+        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cin >> choice;
+    }
+
+    for (int i = 0,x=127; i < 128;i++,x++){
+        for (int j = 0,y=127; j < 128;j++,y++){
+            
+            if (choice == 1)
+                image[i][y] = tempImage[i][j]; 
+            else if (choice == 2)
+                image[i][y] = tempImage[i][y]; 
+            else if (choice == 3)
+                image[i][y] = tempImage[x][j]; 
+            else if (choice == 4)
+                image[i][y] = tempImage[x][y]; 
+        
+        }
+    }
+
+    cout << "choose which quarter to be placed in the third quarter: " << endl;
+    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cin >> choice;
+
+   
+    while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+    {
+        cout << "choose 1 or 2 or 3 or 4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cin >> choice;
+    }
+    
+    for (int i = 0,x=127; i < 128;i++,x++){
+        for (int j = 0,y=127; j < 128;j++,y++){
+            
+            if (choice == 1)
+                image[x][j] = tempImage[i][j]; 
+            else if (choice == 2)
+                image[x][j] = tempImage[i][y];
+            else if (choice == 3)
+                image[x][j] = tempImage[x][j]; 
+            else if (choice == 4)
+                image[x][j] = tempImage[x][y];
+        
+        }
+    }
+
+    cout << "choose which quarter to be placed in the fourth quarter: " << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cin >> choice;
+
+    
+    while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+    {
+        cout << "choose 1 or 2 or 3 or 4" << endl;
+        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cin >> choice;
+    }
+
+    for (int i = 0,x=127; i < 128;i++,x++){
+        for (int j = 0,y=127; j < 128;j++,y++){
+            
+            if (choice == 1)
+                image[x][y] = tempImage[i][j]; 
+            else if (choice == 2)
+                image[x][y] = tempImage[i][y]; 
+            else if (choice == 3)
+                image[x][y] = tempImage[x][j]; 
+            else if (choice == 4)
+                image[x][y] = tempImage[x][y]; 
+        
+        }
+    }
 }
 
 void shrinkImage()
