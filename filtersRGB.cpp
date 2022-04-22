@@ -19,6 +19,7 @@
 
 using namespace std;
 unsigned char imageRGB[SIZE][SIZE][RGB];
+unsigned char tempRGB[SIZE][SIZE][RGB];
 
 // Initializing functions
 void loadImageRGB();
@@ -461,7 +462,6 @@ void blurImageRGB()
 
 void enlargeImageRGB()
 {
-    unsigned char tempRGB[SIZE][SIZE][RGB];
     int choice;
     cout << "Please enter the quarter to be enlarged \n 1 or 2 or 3 or 4\n ===> ";
     cin >> choice;
