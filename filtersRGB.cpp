@@ -20,6 +20,7 @@
 using namespace std;
 unsigned char imageRGB[SIZE][SIZE][RGB];
 unsigned char tempRGB[SIZE][SIZE][RGB];
+unsigned char tempImageRGB[SIZE][SIZE][RGB];
 
 // Initializing functions
 void loadImageRGB();
@@ -617,10 +618,17 @@ void shrinkImageRGB()
 
 void shuffleImageRGB()
 {
-   unsigned char tempImageRGB[SIZE][SIZE][RGB];
-   int choice;
+    for(int i=0; i < SIZE; i++){
+        for(int j = 0; j < SIZE; j++){
+            for(int k = 0; k < SIZE; k++){
+                tempImageRGB[i][j][k]=imageRGB[i][j][k];
+            }
+        }
+    }
+
+    int choice;
     cout << "choose which quarter to be placed in the first quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
 
@@ -631,8 +639,8 @@ void shuffleImageRGB()
         cin >> choice;
     }
 
-    for (int i = 0,x = 127; i < 128;i++, x++){
-        for (int j = 0,y = 127; j < 128; j++,y++){
+    for (int i = 0,x = 128; i < 128;i++, x++){
+        for (int j = 0,y = 128; j < 128; j++,y++){
            for (int k=0; k<RGB; k++){
             
             if (choice == 1)
@@ -649,19 +657,19 @@ void shuffleImageRGB()
     }
 
     cout << "choose which quarter to be placed in the second quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
     
     while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
     {
         cout << "choose 1 or 2 or 3 or 4" << endl;
-        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
         cin >> choice;
     }
 
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
            for (int k=0; k<RGB; k++){
             
             if (choice == 1)
@@ -678,7 +686,7 @@ void shuffleImageRGB()
     }
 
     cout << "choose which quarter to be placed in the third quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
    
@@ -689,8 +697,8 @@ void shuffleImageRGB()
         cin >> choice;
     }
     
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
            for (int k=0; k<RGB; k++){
             
             if (choice == 1)
@@ -714,12 +722,12 @@ void shuffleImageRGB()
     while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
     {
         cout << "choose 1 or 2 or 3 or 4" << endl;
-        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
         cin >> choice;
     }
 
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
            for (int k=0; k<RGB; k++){
             
             if (choice == 1)

@@ -460,10 +460,16 @@ void blurImage()
 
 void shuffleImage()
 {
-   unsigned char tempImage[SIZE][SIZE];
-   int choice;
+    unsigned char tempImage[SIZE][SIZE];
+    for(int i=0; i < SIZE; i++){
+        for(int j = 0; j < SIZE; j++){
+            tempImage[i][j]=image[i][j];
+        }
+    }
+
+    int choice;
     cout << "choose which quarter to be placed in the first quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
 
@@ -474,8 +480,8 @@ void shuffleImage()
         cin >> choice;
     }
 
-    for (int i = 0,x = 127; i < 128;i++, x++){
-        for (int j = 0,y = 127; j < 128; j++,y++){
+    for (int i = 0,x = 128; i < 128;i++, x++){
+        for (int j = 0,y = 128; j < 128; j++,y++){
             
             if (choice == 1)
                 image[i][j] = tempImage[i][j]; 
@@ -490,19 +496,19 @@ void shuffleImage()
     }
 
     cout << "choose which quarter to be placed in the second quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
     
     while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
     {
         cout << "choose 1 or 2 or 3 or 4" << endl;
-        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
         cin >> choice;
     }
 
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
             
             if (choice == 1)
                 image[i][y] = tempImage[i][j]; 
@@ -517,7 +523,7 @@ void shuffleImage()
     }
 
     cout << "choose which quarter to be placed in the third quarter: " << endl;
-    cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+    cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
     cin >> choice;
 
    
@@ -528,8 +534,8 @@ void shuffleImage()
         cin >> choice;
     }
     
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
             
             if (choice == 1)
                 image[x][j] = tempImage[i][j]; 
@@ -551,12 +557,12 @@ void shuffleImage()
     while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
     {
         cout << "choose 1 or 2 or 3 or 4" << endl;
-        cout << "1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
+        cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
         cin >> choice;
     }
 
-    for (int i = 0,x=127; i < 128;i++,x++){
-        for (int j = 0,y=127; j < 128;j++,y++){
+    for (int i = 0,x=128; i < 128;i++,x++){
+        for (int j = 0,y=128; j < 128;j++,y++){
             
             if (choice == 1)
                 image[x][y] = tempImage[i][j]; 
