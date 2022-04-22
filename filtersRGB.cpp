@@ -1,3 +1,16 @@
+// FCAI – Programming 1 – 2022 - Assignment 3
+// Program Name: CS112_2022_2nd_S16_20210262_20210278_20210513_A3_Part1.cpp
+// Description: This is a simple application for photo editing that uses 12 filters
+// the program takes name of photo as an input and allow multiple filters on photo
+// the user may choose to save it whenever he wants and exit the application whenever he wants
+// The app works with colored rgb images
+// Last Modification Date: 22/4/2022
+// Author1 and ID and Group: Omar Ayman-20210262-S16
+// Author2 and ID and Group: Amr Fayez-20210278-S16
+// Author3 and ID and Group: Sara Ali-20210513-S16
+// Teaching Assistant: Nesma Mohamed - Yousra Ayman
+
+// Dependencies
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -7,6 +20,7 @@
 using namespace std;
 unsigned char imageRGB[SIZE][SIZE][RGB];
 
+// Initializing functions
 void loadImageRGB();
 void blackAndWhiteRGB();
 void invertImageRGB();
@@ -118,7 +132,24 @@ void invertImageRGB()
 
 void mergeImagesRGB()
 {
-
+    // load another image
+    unsigned char imageRGB2[SIZE][SIZE][RGB];
+    char imageNew[100];
+    cout << "Enter image file name to merge with: ";
+    cin >> imageNew;
+    strcat(imageNew, ".bmp");
+    readRGBBMP(imageNew, imageRGB2);
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < RGB; k++)
+            {
+                // take average of each pixel of two images
+                imageRGB[i][j][k] = (imageRGB[i][j][k] + imageRGB2[i][j][k]) / 2;
+            }
+        }
+    }
 }
 
 void flipImageRGB()
@@ -167,10 +198,10 @@ void rotateImage90RGB()
             for (int k = 0; k < RGB ; k++)
             {
                 int image2 = imageRGB[i][j][k];
-                imageRGB[i][j][k] = imageRGB[SIZE - 1 - j][i][k];
-                imageRGB[SIZE - 1 - j][i][k] = imageRGB[SIZE - 1 - i][SIZE - 1 - j][k];
-                imageRGB[SIZE - 1 - i][SIZE - 1 - j][k] = imageRGB[j][SIZE - 1 - i][k];
-                imageRGB[j][SIZE - 1 - i][k] = image2;
+                imageRGB[i][j][k] = imageRGB[255 - j][i][k];
+                imageRGB[255 - j][i][k] = imageRGB[255 - i][255 - j][k];
+                imageRGB[255 - i][255 - j][k] = imageRGB[j][255 - i][k];
+                imageRGB[j][255 - i][k] = image2;
             }
         }
     }

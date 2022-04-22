@@ -3,7 +3,8 @@
 // Description: This is a simple application for photo editing that uses 12 filters
 // the program takes name of photo as an input and allow multiple filters on photo
 // the user may choose to save it whenever he wants and exit the application whenever he wants
-// Last Modification Date: 6/4/2022
+// The app works with Grayscale images
+// Last Modification Date: 22/4/2022
 // Author1 and ID and Group: Omar Ayman-20210262-S16
 // Author2 and ID and Group: Amr Fayez-20210278-S16
 // Author3 and ID and Group: Sara Ali-20210513-S16
@@ -190,10 +191,10 @@ void rotateImage90()
         for (int j = i; j < SIZE - i - 1; j++)
         {
             int image2 = image[i][j];
-            image[i][j] = image[SIZE - 1 - j][i];
-            image[SIZE - 1 - j][i] = image[SIZE - 1 - i][SIZE - 1 - j];
-            image[SIZE - 1 - i][SIZE - 1 - j] = image[j][SIZE - 1 - i];
-            image[j][SIZE - 1 - i] = image2;
+            image[i][j] = image[255 - j][i];
+            image[255 - j][i] = image[255 - i][255 - j];
+            image[255 - i][255 - j] = image[j][255 - i];
+            image[j][255 - i] = image2;
         }
     }
 }
