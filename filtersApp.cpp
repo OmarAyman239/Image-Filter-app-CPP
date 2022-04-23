@@ -466,7 +466,7 @@ void shuffleImage()
             tempImage[i][j]=image[i][j];
         }
     }
-
+//creating another variable called tempimage same as the original image.
     int choice;
     cout << "choose which quarter to be placed in the first quarter: " << endl;
     cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
@@ -474,6 +474,7 @@ void shuffleImage()
 
 
     while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+    //to make sure that user insert a proper input from the 4 quarters
     {
         cout << "choose 1 or 2 or 3 or 4" << endl;
         cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4r" << endl;
@@ -485,12 +486,16 @@ void shuffleImage()
             
             if (choice == 1)
                 image[i][j] = tempImage[i][j]; 
+                //put 1st quarter of tempimage in 1st quarter of output image
             else if (choice == 2)
                 image[i][j] = tempImage[i][y]; 
+                //put 2nd quarter of tempimage in 1st quarter of output image
             else if (choice == 3)
                 image[i][j] = tempImage[x][j]; 
+                //put 3rd quarter of tempimage in 1st quarter of output image
             else if (choice == 4)
                 image[i][j] = tempImage[x][y]; 
+                //put 4th quarter of tempimage in 1st quarter of output image
         
         }
     }
@@ -509,7 +514,7 @@ void shuffleImage()
 
     for (int i = 0,x=128; i < 128;i++,x++){
         for (int j = 0,y=128; j < 128;j++,y++){
-            
+            //put "chosen" quarter of tempimage in 2nd quarter of output image
             if (choice == 1)
                 image[i][y] = tempImage[i][j]; 
             else if (choice == 2)
@@ -536,7 +541,7 @@ void shuffleImage()
     
     for (int i = 0,x=128; i < 128;i++,x++){
         for (int j = 0,y=128; j < 128;j++,y++){
-            
+            //put "chosen" quarter of tempimage in 3rd quarter of output image
             if (choice == 1)
                 image[x][j] = tempImage[i][j]; 
             else if (choice == 2)
@@ -560,7 +565,7 @@ void shuffleImage()
         cout << " 1-Quarter1\n 2-Quarter2\n 3-Quarter3\n 4-Quarter4" << endl;
         cin >> choice;
     }
-
+////put "chosen" quarter of tempimage in 4th quarter of output image
     for (int i = 0,x=128; i < 128;i++,x++){
         for (int j = 0,y=128; j < 128;j++,y++){
             
