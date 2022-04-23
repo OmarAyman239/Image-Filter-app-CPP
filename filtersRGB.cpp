@@ -113,11 +113,14 @@ void blackAndWhiteRGB()
         for (int j = 0; j < SIZE; j++){
             for (int k = 0; k < RGB; k++){
                 
+                // Change the RGB value from 3 to 1 to convert the image to grayscale 
                 imageRGB[i][j][k] = imageRGB[i][j][1];
+                // if the pixel color is more than 127 change to black
                 if (imageRGB[i][j][k] > 127)
                 {
                     imageRGB[i][j][k] = 255;
                 }
+                // if the pixel color is less than 127 change to white
                 else if (imageRGB[i][j][k] < 127)
                 {
                     imageRGB[i][j][k] = 0;
@@ -129,9 +132,11 @@ void blackAndWhiteRGB()
 
 void invertImageRGB()
 {
+    //Intializing the 3D Array
     for (int i = 0; i <SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             for (int k = 0; k <RGB ; k++){
+                //Swaping every pixel with the negative of its color by subtracting from 255
                 imageRGB[i][j][k] = 255 - imageRGB[i][j][k];
             }
         }
@@ -165,7 +170,7 @@ void flipImageRGB()
     int flip;
     cout << "1-Horizontal Flip\n2-Vertical Flip\n===> ";
     cin >> flip;
-    // Intializing the 2d Array
+    // Intializing the 3D Array
     if(flip == 1){
         for (int i = 0; i < SIZE / 2; i++)
         {
@@ -181,7 +186,7 @@ void flipImageRGB()
     }
     else if(flip == 2)
     {
-        // Intializing the 2d Array
+        // Intializing the 3D Array
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE / 2; j++)
@@ -234,12 +239,14 @@ void rotateImage180RGB()
 
 void rotateImage270RGB()
 {
+    // Using the two other rotate functions to rotate 270 
     rotateImage90RGB();
     rotateImage180RGB();
 }
 
 void rotateImageRGB()
 {
+    // Function to be added in the menu, which contains the 3 rotate functions
     char rotate;
     cout << " 1-90\n 2-180\n 3-270\n===> ";
     cin >> rotate;
@@ -331,7 +338,7 @@ void mirrorImageRGB()
 
     if(mirror == 1)  //If the command is 1 Mirror the left half of the image 
     {
-        //Intializing the 2D Array
+        //Intializing the 3D Array
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
@@ -345,7 +352,7 @@ void mirrorImageRGB()
     }
     else if(mirror == 2)   // If the command is 2 Mirror the right half of the image 
     {
-        //Intializing the 2D Array
+        //Intializing the 3D Array
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
@@ -359,7 +366,7 @@ void mirrorImageRGB()
     }
     else if(mirror == 3)   // If the command is 3 Mirror the upper half of the image 
     {
-        //Intializing the 2D Array
+        //Intializing the 3D Array
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
@@ -373,7 +380,7 @@ void mirrorImageRGB()
     }
     else if(mirror == 4)   // If the command is 4 Mirror the bottom half of the image 
     {
-        //Intializing the 2D Array
+        //Intializing the 3D Array
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
